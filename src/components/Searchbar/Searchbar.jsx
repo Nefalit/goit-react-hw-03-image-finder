@@ -19,9 +19,6 @@ class Searchbar extends Component {
     let result = this.state.search;
     const { onSubmit } = this.props;
     onSubmit(result);
-    this.setState({
-      search: '',
-    });
   };
 
   render() {
