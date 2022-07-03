@@ -4,26 +4,25 @@ import s from './searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
-    search: '',
+    input: '',
   };
 
   handleChange = ({ target }) => {
-    const { value } = target;
+    const { value, name } = target;
     this.setState({
-      search: value,
+      [name]: value,
     });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    let result = this.state.search;
+    const result = this.state.input;
     const { onSubmit } = this.props;
     onSubmit(result);
   };
 
   render() {
     const { handleChange, handleSubmit } = this;
-    const { totalImg, totalShown } = this.props;
     return (
       <header className={s.searchBar}>
         <form onSubmit={handleSubmit} className={s.searchForm}>
@@ -34,6 +33,7 @@ class Searchbar extends Component {
           <input
             onChange={handleChange}
             className={s.searchInput}
+            name="input"
             type="text"
             autoComplete="off"
             autoFocus
@@ -41,8 +41,6 @@ class Searchbar extends Component {
             required
           />
         </form>
-        <p className={s.total}>Total image find : {totalImg} </p>
-        <p className={s.total}>Total image shown: {totalShown} </p>
       </header>
     );
   }

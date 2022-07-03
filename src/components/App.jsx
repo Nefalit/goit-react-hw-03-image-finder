@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Searchbar from './Searchbar/Searchbar';
-import Modal from '../shared/Modal/Modal';
+import Total from './Total/Total';
+import Modal from '../shared/components/Modal/Modal';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import { getPhoto } from '../shared/services/api';
@@ -118,11 +119,10 @@ export class App extends Component {
             />
           </Modal>
         )}
-        <Searchbar
-          onSubmit={changeSearch}
-          totalImg={total}
-          totalShown={totalForCheck}
-        />
+        <Searchbar onSubmit={changeSearch} />
+        {items.length >= 12 && (
+          <Total totalImg={total} totalShown={totalForCheck} />
+        )}
         {!notification && !error && (
           <ImageGallery onClick={showModal} items={items} />
         )}

@@ -16,6 +16,9 @@ export default ImageGallery;
 ImageGallery.propTypes = {
   onClick: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired
+    id: PropTypes.number.isRequired,
+    webformatURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
   }),)
 };
