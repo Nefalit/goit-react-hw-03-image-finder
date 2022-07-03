@@ -17,13 +17,18 @@ export class App extends Component {
     loading: false,
     notification: false,
     total: 0,
-    totalForCheck: 12,
+    totalForCheck: 0,
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const { page, search } = this.state;
+    const { page, search, items: newItems } = this.state;
+    const { items: oldItems } = prevState;
+
     if (page !== prevState.page || search !== prevState.search) {
       this.fetchPhoto();
+    }
+    if (newItems.length !== oldItems.length) {
+      this.setState({ totalForCheck: newItems.length });
     }
   }
 
@@ -42,7 +47,7 @@ export class App extends Component {
       this.setState(({ items }) => {
         return {
           items: [...items, ...data.hits],
-          total: data.total,
+          total: data.totalHits,
         };
       });
     } catch (error) {
@@ -61,16 +66,15 @@ export class App extends Component {
         search: string,
         items: [],
         page: 1,
-        totalForCheck: 12,
+        total: 0,
       });
     }
   };
 
   loadMore = () => {
-    this.setState(({ page, totalForCheck }) => {
+    this.setState(({ page }) => {
       return {
         page: page + 1,
-        totalForCheck: totalForCheck + 12,
       };
     });
   };
@@ -107,11 +111,21 @@ export class App extends Component {
       <div className="App">
         {modalOpen && (
           <Modal closeModal={closeModal}>
-            <img className="modalImg" src={modalContent.src} alt={modalContent.alt} />
+            <img
+              className="modalImg"
+              src={modalContent.src}
+              alt={modalContent.alt}
+            />
           </Modal>
         )}
-        <Searchbar onSubmit={changeSearch} />
-        <ImageGallery onClick={showModal} items={items} />
+        <Searchbar
+          onSubmit={changeSearch}
+          totalImg={total}
+          totalShown={totalForCheck}
+        />
+        {!notification && !error && (
+          <ImageGallery onClick={showModal} items={items} />
+        )}
         {loading && <Loader />}
         {notification && (
           <p className="notification">Sorry no results, try again...</p>

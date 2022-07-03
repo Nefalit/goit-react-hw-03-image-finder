@@ -10,7 +10,7 @@ class Searchbar extends Component {
   handleChange = ({ target }) => {
     const { value } = target;
     this.setState({
-        search: value,
+      search: value,
     });
   };
 
@@ -23,6 +23,7 @@ class Searchbar extends Component {
 
   render() {
     const { handleChange, handleSubmit } = this;
+    const { totalImg, totalShown } = this.props;
     return (
       <header className={s.searchBar}>
         <form onSubmit={handleSubmit} className={s.searchForm}>
@@ -40,6 +41,8 @@ class Searchbar extends Component {
             required
           />
         </form>
+        <p className={s.total}>Total image find : {totalImg} </p>
+        <p className={s.total}>Total image shown: {totalShown} </p>
       </header>
     );
   }

@@ -1,6 +1,7 @@
 .searchBar {
   background-color: #303f9f;
   height: 70px;
+  display: flex;
 }
 .searchForm {
   display: flex;
@@ -10,7 +11,10 @@
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
-  margin: 10px auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: 20px;
 }
 
 .searchBtn {
@@ -58,4 +62,11 @@
 .searchInput::placeholder {
   font: inherit;
   font-size: 18px;
+}
+.total {
+  font: inherit;
+  font-size: 20px;
+  font-weight: 700;
+  display: block;
+  margin-right: auto;
 }
